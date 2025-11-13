@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Military Asset Management System (MAMS)
+
+A full-stack web application for managing military assets with role-based access control (RBAC). Built with Next.js, MongoDB, and TypeScript.
+
+## Features
+
+- **User Authentication**: Secure login/registration with JWT tokens
+- **Role-Based Access Control**: Admin, Commander, and Logistics roles with different permissions
+- **Asset Management**: Track equipment types, bases, and transactions (purchases, transfers, assignments, expenditures)
+- **Dashboard**: Real-time metrics and reports with filtering by date, base, and equipment type
+- **CRUD Operations**: Full create, read, update, delete functionality for all entities
+- **Professional UI**: Clean, responsive design using Tailwind CSS
+
+## Tech Stack
+
+- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, MongoDB with Mongoose ODM
+- **Authentication**: JWT with bcryptjs for password hashing
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+
+- MongoDB (local or cloud instance like MongoDB Atlas)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd mams
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit `.env.local` with your MongoDB URI and a secure JWT secret:
+```
+MONGODB_URI=mongodb://localhost:27017/mams
+JWT_SECRET=your-super-secret-jwt-key-here
+```
 
-## Learn More
+4. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application uses MongoDB with the following collections:
 
-## Deploy on Vercel
+- **Users**: Authentication and role management
+- **Bases**: Military base locations
+- **EquipmentTypes**: Categories of military equipment
+- **Transactions**: Immutable ledger of all asset movements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/logout` - User logout
+- `GET/POST /api/bases` - Base management
+- `GET/POST /api/equipment-types` - Equipment type management
+- `GET/POST /api/transactions` - Transaction management
+- `GET /api/dashboard/metrics` - Dashboard metrics with RBAC
+
+## Deployment
+
+### Vercel Deployment
+
+1. Push your code to GitHub
+2. Connect your GitHub repo to Vercel
+3. Set environment variables in Vercel dashboard:
+   - `MONGODB_URI`
+   - `JWT_SECRET`
+4. Deploy
+
+### Manual Build
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
+
+```
+mams/
+├── src/
+│   ├── app/
+│   │   ├── api/          # API routes
+│   │   ├── dashboard/    # Dashboard page
+│   │   ├── login/        # Login page
+│   │   ├── register/     # Registration page
+│   │   └── ...
+│   ├── lib/              # Utilities (auth, mongodb)
+│   └── models/           # Mongoose schemas
+├── public/               # Static assets
+└── ...
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
